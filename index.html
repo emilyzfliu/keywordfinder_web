@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<script src="script.js"></script>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Keyword Practice</h1>
+    <h3>Enter your text below.</h3>
+
+    <textarea rows="10" cols="50" id="input_text"></textarea>
+    <br>
+
+    <button onclick="parseText()">Proceed!</button>
+
+    <p id="blanked_text"></p>
+    <p id="instruc" style.visibility="hidden">Enter the blanked words, one per line. (If skipping a blank, enter an underscore in the line and continue):</p>
+
+    <textarea rows="10" cols="50" id="input_keywords" style.visibility="hidden"></textarea>
+    <br>
+    <button onclick="grade()" id="grader_button" style.visibility="hidden">Check my work!</button>
+
+    <p id="graded_text"></p>
+    <p id="overview"></p>
+</body>
+</html>
