@@ -1,5 +1,6 @@
 var keywords
-
+var ct
+var graded
 function parseText() {
     keywords = []
     var rawtext = document.getElementById("input_text").value;
@@ -15,7 +16,7 @@ function parseText() {
             var word = strip_punc(rawwords[i])
             
             
-            if (word.length>7) {
+            if (isKeyword(word)) {
                 keywords.push(word)
             }
             words.push(rawwords[i])
@@ -26,15 +27,18 @@ function parseText() {
 
     var text_with_blanks = make_text(words, keywords);
 
+    document.getElementById("blanked_text").style.visibility="visible"
     document.getElementById("blanked_text").innerHTML = text_with_blanks
-    document.getElementById("instruc").visibility="visible"
-    document.getElementById("input_keywords").visibility="visible"
-    document.getElementById("grader_button").visibility="visible"
+    document.getElementById("grader_button").style.visibility="visible"
+}
+
+function isKeyword(word) {
+    return word.length>7
 }
 
 function make_text(words, keywords) {
     var ret = ""
-    var ct = 1
+    ct = 0
 
     var endl = ["ENDL"]
     for (k=0; k<words.length; k++) {
@@ -43,13 +47,20 @@ function make_text(words, keywords) {
             ret+="<br>"
         }
         else if (keywords.includes(strip_punc(word))) {
-            ret+= "<b>"+ct+". "
-            for (l=0; l<word.length; l++) {
-                if (isLetter(word.charAt(l))) ret+="_"
-                else ret+=word.charAt(l)
+            l=0
+            while (!isLetter(word.charAt(l))) {
+                ret+=word.charAt(l)
+            }
+            ret+="<input type=\"text\" id= input"+ct+">"
+            while (l<word.length) {
+                while (isLetter(word.charAt(l))) l++
+                if (l<word.length) {
+                    ret+=word.charAt(l)
+                    l++
+                }
             }
             ret+="</b> "
-            ct+=1
+            ct++
         }
         else {
             ret+=word+" "
@@ -77,33 +88,51 @@ function isLetter(c) {
 
 
 function grade() {
-    var user_input = document.getElementById("input_keywords").value;
-    document.getElementById("input_keywords").value = "";
-    guesses = user_input.split("\n");
-    ret=""
+    var guesses = []
+
+    for (b=0; b<ct; b++) {
+        guesses.push(document.getElementById("input"+b).value)
+    }
+
     var numwrong=0;
     var numright=0;
 
     for (a=0; a<guesses.length; a++) {
         guess = guesses[a].toLowerCase()
         ans = keywords[a]
-        document.getElementById("graded_text").innerHTML=guess+" "+ans
         var anslist = [ans.toLowerCase()]
 
         if (anslist.includes(guess)) {
-            ret+="<span style=\"color:green;font-weight:bold\">"+guess+"</span><br>"
+            document.getElementById("input"+a).style.color="green"
             numright+=1
         }
         else {
-            ret+="<span style=\"color:red;font-weight:bold\">"+ans+" (Your answer: "+guess+")</span><br>"
+            document.getElementById("input"+a).style.color="red"
             numwrong+=1
             
         }
-        document.getElementById("graded_text").innerHTML=ret
     }
     var numtot = numright+numwrong
+    document.getElementById("overview").style.visibility="visible"
     document.getElementById("overview").innerHTML= numright+" out of "+numtot+" keywords correct."
+    document.getElementById("resetter").style.visibility="visible"
+    document.getElementById("showres_button").style.visibility="visible"
 
+}
+
+function show_results() {
+    for (ee=0; ee<ct; ee++) {
+        document.getElementById("input"+ee).value = keywords[ee]
+        document.getElementById("input"+ee).style.color="blue"
+    }
+}
+
+function reset() {
+    document.getElementById("blanked_text").style.visibility = "hidden"
+    document.getElementById("grader_button").style.visibility = "hidden"
+    document.getElementById("overview").style.visibility = "hidden"
+    document.getElementById("resetter").style.visibility = "hidden"
+    document.getElementById("showres_button").style.visibility = "hidden"
 }
 
 

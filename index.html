@@ -9,20 +9,19 @@
 <body>
     <h1>Keyword Practice</h1>
     <h3>Enter your text below.</h3>
-
-    <textarea rows="10" cols="50" id="input_text"></textarea>
+    <textarea rows="10" cols="50" id="input_text">I ate some watermelon I saw in an ad on Craigslist today.</textarea>
     <br>
 
     <button onclick="parseText()">Proceed!</button>
 
     <p id="blanked_text"></p>
-    <p id="instruc" style.visibility="hidden">Enter the blanked words, one per line. (If skipping a blank, enter an underscore in the line and continue):</p>
+    
+    <button onclick="grade()" id="grader_button" style="visibility:hidden">Check my work!</button>
 
-    <textarea rows="10" cols="50" id="input_keywords" style.visibility="hidden"></textarea>
-    <br>
-    <button onclick="grade()" id="grader_button" style.visibility="hidden">Check my work!</button>
-
-    <p id="graded_text"></p>
     <p id="overview"></p>
+
+    <button onclick="reset()" id="resetter" style="visibility:hidden">Start over!</button>
+    <button onclick="show_results()" id="showres_button" style="visibility:hidden">Tell me the answers!</button>
+
 </body>
 </html>
