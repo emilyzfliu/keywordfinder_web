@@ -5,23 +5,32 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Keyword Practice</h1>
-    <h3>Enter your text below.</h3>
-    <textarea rows="10" cols="50" id="input_text">I ate some watermelon I saw in an ad on Craigslist today.</textarea>
-    <br>
+    <h2 class="title">  <div class="headertext">The Writing Companion</div></h2>
+    <h2 class="menubar"><div class="menubartext">Menu Bar Items Go Here</div></h2>
+    <h1 class="subcategory">Custom Text Practice</h1>
+    <div class="website_content">
+        <h3 class>Enter your text below.</h3>
+        <textarea rows="10" cols="50" id="input_text"></textarea>
+        <br>
+        <br>
 
-    <button onclick="parseText()">Proceed!</button>
+        <button onclick="parseText()" class="button">Proceed!</button>
 
-    <p id="blanked_text"></p>
+        <p id="blanked_text" class="maintext"></p>
     
-    <button onclick="grade()" id="grader_button" style="visibility:hidden">Check my work!</button>
+        <button onclick="grade()" id="grader_button" style="visibility:hidden" class="button">Check my work!</button>
 
-    <p id="overview"></p>
+        <p id="overview"></p>
 
-    <button onclick="reset()" id="resetter" style="visibility:hidden">Start over!</button>
-    <button onclick="show_results()" id="showres_button" style="visibility:hidden">Tell me the answers!</button>
+        <button onclick="reset()" id="resetter" style="visibility:hidden" class="button">Start over!</button>
+        <button onclick="show_results()" id="showres_button" style="visibility:hidden" class="button">Show me the answers!</button>
+
+    </div>
+
+    
 
 </body>
 </html>

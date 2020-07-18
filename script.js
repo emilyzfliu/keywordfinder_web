@@ -51,7 +51,7 @@ function make_text(words, keywords) {
             while (!isLetter(word.charAt(l))) {
                 ret+=word.charAt(l)
             }
-            ret+="<input type=\"text\" id= input"+ct+">"
+            ret+="  <input type=\"text\" class= \"input_text\" id= input"+ct+">  "
             while (l<word.length) {
                 while (isLetter(word.charAt(l))) l++
                 if (l<word.length) {
@@ -59,7 +59,6 @@ function make_text(words, keywords) {
                     l++
                 }
             }
-            ret+="</b> "
             ct++
         }
         else {
@@ -134,8 +133,6 @@ function reset() {
     document.getElementById("resetter").style.visibility = "hidden"
     document.getElementById("showres_button").style.visibility = "hidden"
 }
-
-
 
 /*
 SAMPLE TEXT SAMPLE TEXT SAMPLE TEXT
