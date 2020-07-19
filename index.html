@@ -9,7 +9,11 @@
 </head>
 <body>
     <h2 class="title">  <div class="headertext">The Writing Companion</div></h2>
-    <h2 class="menubar"><div class="menubartext">Menu Bar Items Go Here</div></h2>
+
+    <h2 class="menubar" id="sticky_menubar"><div class="menubartext">Menu Bar Items Go Here</div></h2>
+
+    <div class="scrollable">
+
     <h1 class="subcategory">Custom Text Practice</h1>
     <div class="website_content">
         <h3 class>Enter your text below.</h3>
@@ -29,8 +33,23 @@
         <button onclick="show_results()" id="showres_button" style="visibility:hidden" class="button">Show me the answers!</button>
 
     </div>
-
+</div>
+<script>
+    window.onscroll = function() {myFunction()};
     
-
+    var header = document.getElementById("sticky_menubar");
+    var sticky = header.offsetTop;
+    
+    function myFunction() {
+      if (window.pageYOffset > sticky) {
+        header.classList.add("sticky");
+      } else {
+        header.classList.remove("sticky");
+      }
+    }
+    
+    
+    
+    </script>
 </body>
 </html>

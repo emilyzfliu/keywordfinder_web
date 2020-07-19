@@ -1,6 +1,11 @@
 var keywords
 var ct
 var graded
+var wrong_indexes
+var col_correct = "#159454"
+var col_wrong = "#ff5e5e"
+var col_grader = "#1a61f0"
+
 function parseText() {
     keywords = []
     var rawtext = document.getElementById("input_text").value;
@@ -11,7 +16,7 @@ function parseText() {
     var words = []
 
     for (para=0; para<rawpara.length; para++) {
-        var rawwords = rawpara[para].split(" ")
+        var rawwords = rawpara[para].split(/\s|-/)
         for (i=0; i<rawwords.length; i++) {
             var word = strip_punc(rawwords[i])
             
@@ -51,7 +56,8 @@ function make_text(words, keywords) {
             while (!isLetter(word.charAt(l))) {
                 ret+=word.charAt(l)
             }
-            ret+="  <input type=\"text\" class= \"input_text\" id= input"+ct+">  "
+            w = word.length*10
+            ret+="  <input type=\"text\" class= \"input_text\" id= input"+ct+" style=\"width: "+w+"px;\">  "
             while (l<word.length) {
                 while (isLetter(word.charAt(l))) l++
                 if (l<word.length) {
@@ -62,7 +68,7 @@ function make_text(words, keywords) {
             ct++
         }
         else {
-            ret+=word+" "
+            ret+=" "+word+" "
         }
     }
 
@@ -81,7 +87,7 @@ function strip_punc(word) {
 }
 
 function isLetter(c) {
-    return c>='a'&&c<='z' || c>='A'&&c<='Z'
+    return c>='a'&&c<='z' || c>='A'&&c<='Z' || c=='\''
 }
 
 
@@ -96,19 +102,21 @@ function grade() {
     var numwrong=0;
     var numright=0;
 
+    wrong_indexes = []
+
     for (a=0; a<guesses.length; a++) {
         guess = guesses[a].toLowerCase()
         ans = keywords[a]
         var anslist = [ans.toLowerCase()]
 
         if (anslist.includes(guess)) {
-            document.getElementById("input"+a).style.color="green"
+            document.getElementById("input"+a).style.color=col_correct
             numright+=1
         }
         else {
-            document.getElementById("input"+a).style.color="red"
+            document.getElementById("input"+a).style.color=col_wrong
             numwrong+=1
-            
+            wrong_indexes.push(a)
         }
     }
     var numtot = numright+numwrong
@@ -122,7 +130,9 @@ function grade() {
 function show_results() {
     for (ee=0; ee<ct; ee++) {
         document.getElementById("input"+ee).value = keywords[ee]
-        document.getElementById("input"+ee).style.color="blue"
+        if (wrong_indexes.includes(ee)) {
+            document.getElementById("input"+ee).style.color=col_grader
+        }
     }
 }
 
@@ -133,12 +143,3 @@ function reset() {
     document.getElementById("resetter").style.visibility = "hidden"
     document.getElementById("showres_button").style.visibility = "hidden"
 }
-
-/*
-SAMPLE TEXT SAMPLE TEXT SAMPLE TEXT
-Most humans fall into one of four blood groups — A, B, AB or O.
-Ordinarily, your blood type makes very little difference in your daily life except if you need to have a blood transfusion.
-However, people with Type A may have a higher risk of catching Covid-19 and of developing severe symptoms, recent research has suggested, while people with Type O blood have a lower risk. These study results follow evidence from past research that certain blood groups are more vulnerable to other diseases like cancer.
-But why we have blood types and what purpose they serve is still largely unknown, and very little is known about their links to viruses and disease. Unlocking what role blood types play would potentially help scientists better understand the risk of disease for people in different blood groups.
-"I think it's fascinating, the evolutionary history, even though I don't think we have the answer of why we have different blood types," said Laure Segurel, a human evolutionary geneticist and a researcher at the National Museum of Natural History in France.
-*/
