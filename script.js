@@ -1,6 +1,7 @@
 var keywords
 var ct
 var graded
+var guesses
 var wrong_indexes
 var col_correct = "#159454"
 var col_wrong = "#ff5e5e"
@@ -32,9 +33,15 @@ function parseText() {
 
     var text_with_blanks = make_text(words, keywords);
 
-    document.getElementById("blanked_text").style.visibility="visible"
+    document.getElementById("readerButton").style ="display:none;"
+    document.getElementById("input_text").style="display:none;"
+    document.getElementById("instructions").style="display:none;"
+    document.getElementById("brk1").style="display:none;"
+    document.getElementById("brk2").style="display:none;"
+
+    document.getElementById("blanked_text").style="display:visible;"
     document.getElementById("blanked_text").innerHTML = text_with_blanks
-    document.getElementById("grader_button").style.visibility="visible"
+    document.getElementById("grader_button").style="display:visible;"
 }
 
 function isKeyword(word) {
@@ -93,7 +100,7 @@ function isLetter(c) {
 
 
 function grade() {
-    var guesses = []
+    guesses = []
 
     for (b=0; b<ct; b++) {
         guesses.push(document.getElementById("input"+b).value)
@@ -120,10 +127,11 @@ function grade() {
         }
     }
     var numtot = numright+numwrong
-    document.getElementById("overview").style.visibility="visible"
+    document.getElementById("overview").style="display:visible;"
     document.getElementById("overview").innerHTML= numright+" out of "+numtot+" keywords correct."
-    document.getElementById("resetter").style.visibility="visible"
-    document.getElementById("showres_button").style.visibility="visible"
+    document.getElementById("resetter").style="display:visible;"
+    document.getElementById("showres_button").style="display:visible;"
+    document.getElementById("showog_button").style="display:visible;"
 
 }
 
@@ -136,10 +144,26 @@ function show_results() {
     }
 }
 
+function show_og() {
+    for (ee=0; ee<ct; ee++) {
+        document.getElementById("input"+ee).value = guesses[ee]
+        if (wrong_indexes.includes(ee)) {
+            document.getElementById("input"+ee).style.color=col_wrong
+        }
+    }
+}
+
 function reset() {
-    document.getElementById("blanked_text").style.visibility = "hidden"
-    document.getElementById("grader_button").style.visibility = "hidden"
-    document.getElementById("overview").style.visibility = "hidden"
-    document.getElementById("resetter").style.visibility = "hidden"
-    document.getElementById("showres_button").style.visibility = "hidden"
+    document.getElementById("blanked_text").style="display:none;"
+    document.getElementById("grader_button").style="display:none;"
+    document.getElementById("overview").style="display:none;"
+    document.getElementById("resetter").style="display:none;"
+    document.getElementById("showres_button").style="display:none;"
+    document.getElementById("showog_button").style="display:none;"
+
+    document.getElementById("readerButton").style ="display:visible;"
+    document.getElementById("input_text").style="display:visible;"
+    document.getElementById("instructions").style="display:visible;"
+    document.getElementById("brk1").style="display:visible;"
+    document.getElementById("brk2").style="display:visible;"
 }

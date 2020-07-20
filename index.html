@@ -16,12 +16,16 @@
 
     <h1 class="subcategory">Custom Text Practice</h1>
     <div class="website_content">
-        <h3 class>Enter your text below.</h3>
-        <textarea rows="10" cols="50" id="input_text"></textarea>
-        <br>
-        <br>
 
-        <button onclick="parseText()" class="button">Proceed!</button>
+        <h3 id="instructions">Enter your text below.</h3>
+
+        <textarea rows="10" cols="50" id="input_text" ></textarea>
+        <br id="brk1">
+        <br id="brk2">
+
+        <button onclick="parseText()" class="button" id="readerButton">Proceed!</button>
+
+
 
         <p id="blanked_text" class="maintext"></p>
     
@@ -31,7 +35,7 @@
 
         <button onclick="reset()" id="resetter" style="visibility:hidden" class="button">Start over!</button>
         <button onclick="show_results()" id="showres_button" style="visibility:hidden" class="button">Show me the answers!</button>
-
+        <button onclick="show_og()" id="showog_button" style="visibility:hidden" class="button">Show me my response!</button>
     </div>
 </div>
 <script>
